@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="loginForm">
+      <div>
+        <label>Email:</label>
+        <input type="email" name="email" required />
+        <div class="error" id="emailError"></div>
+      </div>
+      <div>
+        <label>Password:</label>
+        <input type="password" name="password" required />
+        <div class="error" id="passwordError"></div>
+      </div>
+
+      <div>
+        <label>FirstName:</label>
+        <input type="FirstName" name="FirstName" required />
+        <div class="error" id="FirstName"></div>
+      </div>
+
+     
+      <div>
+        <button type="submit">Login</button>
+      </div>
+    </form>
+
+    <script>
+      const form = document.getElementById("loginForm");
+      const emailInput = form.elements.email;
+      const passwordInput = form.elements.password;
+      const emailError = document.getElementById("emailError");
+      const passwordError = document.getElementById("passwordError");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (validateForm()) {
+          // Perform login action (e.g., send data to the server)
+          console.log("Login successful");
+          // Reset form fields
+          form.reset();
+        }
+      });
+
+      function validateForm() {
+        let isValid = true;
+        emailError.textContent = "";
+        passwordError.textContent = "";
+
+        // Validate email
+        if (!emailInput.value) {
+          emailError.textContent = "Email is required";
+          isValid = false;
+        } else if (!/\S+@\S+\.\S+/.test(emailInput.value)) {
+          emailError.textContent = "Invalid email address";
+          isValid = false;
+        }
+
+        // Validate password
+        if (!passwordInput.value) {
+          passwordError.textContent = "Password is required";
+          isValid = false;
+        } else if (passwordInput.value.length < 6) {
+          passwordError.textContent =
+            "Password must be at least 6 characters long";
+          isValid = false;
+        }
+
+        return isValid;
+      }
+    </script>
+  </body>
+</html>
